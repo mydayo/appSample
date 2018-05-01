@@ -1,0 +1,56 @@
+<!--<template id="tab1.html">-->
+    <ons-page id="Tab1">
+
+        <div id="memoContent"></div>
+
+        <script>
+            var isloaded = false;
+
+            $(function(){
+
+                if (isloaded) {
+
+                    return;
+
+                }
+                var userId = localStorage.getItem("userId");
+
+                //            var APIUrl = "http://192.168.0.4:8080/content/json/listContent";
+                var APIUrl = localStorage.getItem("APIUrl")+"/content/json/listContent";
+
+                $.ajax({
+                    url : APIUrl,
+                    method : "POST",
+                    dataType : "jsonp",
+                    data : {
+                        "userId" : userId
+                    },
+                    success : function(data) {
+                        var infinite = '';
+                        $('#memoContent').html("");
+                        $.each(data.list,function(i){
+//                            console.log("Map ==>" + JSON.stringify(data.contentType));
+//                            console.log("aaaaaa==>" + JSON.stringify(data.list));
+
+
+                            infinite +='<ons-card onclick="updateContent('+data.list[i].contentNo+')">'
+                                    +'<div class="title"> title : '+data.list[i].ogTitle+'</div>'
+                                    +'<img src="'+data.list[i].ogImgUrl+'" alt="Onsen UI" style="width: 100%">'
+                                    +data.list[i].content+'</ons-card>';
+                        });
+//                        console.log("infinite :: " + infinite);
+
+                        $('#memoContent').append(infinite);
+
+                    },
+                    error : function(e,data) {
+                        console.log("error==>"+JSON.stringify(e));
+                        console.log("data ==>" + data);
+                    }
+                });//End Ajax
+
+                isloaded = true;
+            });
+        </script>
+    </ons-page>
+<!--</template>-->

@@ -1,0 +1,136 @@
+<!--<template id="tab3.html">-->
+
+<!--ul li로 하는게 편함!!!-->
+
+
+    <ons-page id="Tab2">
+
+
+
+        <table id="group--layout" style="width: 100%; height: 100%;">
+        </table>
+
+
+
+        <script>
+            var plusGroup = function(){
+//                alert("zzz"+$('#group--layout tr').length);
+//                alert("zzz"+$('#group--layout tr th').length);
+//                alert("zzzzz" + $('#group--layout tr:last').html());
+//                $('#group--layout tr:last').append('<th><ons-fab><ons-icon>hello</ons-icon></ons-fab></th>');
+                var infinite ='';
+
+                if( ($('#group--layout tr th').length) %4 == 0 ){
+                    $('#group--layout').append('<tr><th><div><ons-fab><ons-icon>' +
+                        '</ons-icon></ons-fab></div>' +
+                        '<div><ons-input class="input--group--name" modifier="underbar" placeholder="Username" float></ons-input>' +
+                        '<ons-button class="add--group">Add</ons-button>' +
+                        '</div></th></tr>')
+                }else {
+                    $('#group--layout tr:last').append('<th><div><ons-fab><ons-icon>' +
+                        '</ons-icon></ons-fab></div>' +
+                        '<div><ons-input class="input--group--name" modifier="underbar" placeholder="Username" float></ons-input>' +
+                        '<ons-button class="add--group">Add</ons-button>' +
+                        '</div></th>');
+                }
+
+            };
+
+
+
+            var addGroup = function(){
+//                alert("" + $(this).parent().find('.input--group--name').val());
+                var groupName = $(this).parent().find('.input--group--name').val();
+                var APIUrl = localStorage.getItem('APIUrl')+"/group/json/addGroup";
+                var userId = localStorage.getItem('userId');
+                $.ajax({
+                    url: APIUrl,
+                    method : "POST",
+                    dataType : "jsonp",
+                    data : {
+                        userId : userId,
+                        groupName : groupName
+                    },
+                    success : function(data){
+
+                        console.log("addGroup :: " +JSON.stringify(data));
+                        $('.input--group--name').remove();
+                        $('.add--group').remove();
+                        $('#group--layout tr:last th:last ons-icon').text(groupName);
+                    },
+                    error : function(e){
+                        console.log(e);
+                    }
+                })
+            };
+
+            $("body").on('click', '.add--group', addGroup);
+
+
+
+
+            ons.ready(function(){
+                var userId = localStorage.getItem("userId");
+                var APIUrl = localStorage.getItem("APIUrl")+"/group/json/listGroup";
+
+                $.ajax({
+                    url : APIUrl,
+                    method : "POST",
+                    dataType : "jsonp",
+                    data : {
+                        "userId" : userId
+                    },
+                    success : function(data) {
+                        var infinite = '';
+                        var trCount = data.list.length % 3;
+                        $.each(data.list,function(i){
+//                            console.log("Map ==>" + JSON.stringify(data.contentType));
+                            console.log("tab33333==>" + data.list[i].groupName);
+                            console.log("i :: "+i+ "length ::" +data.list.length);
+
+                            if( i== 0) {
+                                infinite += '<tr><th><ons-fab onclick="plusGroup()"><ons-icon icon="md-plus"></ons-icon></ons-fab></th>'
+                                            +'<th><ons-fab><ons-icon>'
+                                            +data.list[i].groupName
+                                            + '</ons-icon></ons-fab></th>'
+
+                            }else if( i != 0 && i % 3 == 0 ){
+                                infinite += '<th><ons-fab><ons-icon>'
+                                        + data.list[i].groupName
+                                        + '</ons-icon></ons-fab></th></tr>'
+
+                            }else if( i != 0 && (i+1) % 3 == 1) {
+                                infinite += '<tr><th><ons-fab><ons-icon>'
+                                        + data.list[i].groupName
+                                        + '</ons-icon></ons-fab></th>'
+
+                            }
+                            else if( i != 0 && (i+1) % 3 == 2){
+                                infinite += '<th><ons-fab><ons-icon>'
+                                        + data.list[i].groupName
+                                        + '</ons-icon></ons-fab></th>'
+                            }
+
+
+
+                        });//End ForEach
+                        if(trCount != 0){
+                            infinite += '</tr>';
+                        }
+
+                        console.log("tab3 infinite :: " + infinite);
+                        $('#group--layout').append(infinite);
+                    },
+                    error : function(e,data) {
+                        console.log("error==>"+JSON.stringify(e));
+                        console.log("data ==>" + data);
+                    }
+                });//End Ajax
+            });//End ons.ready
+
+
+        </script>
+
+    </ons-page>
+<!--</template>-->
+
