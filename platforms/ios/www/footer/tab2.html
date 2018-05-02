@@ -1,0 +1,103 @@
+<!--<template id="tab2.html">-->
+    <ons-page id="Tab2">
+
+        <ons-carousel swipeable auto-scroll overscrollable item-width="30%" item-height="300px" id="carousel">
+            <!--<ons-carousel-item style="background-color: #085078;">
+                <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
+                    BLUE
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #373B44;">
+                <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
+                    DARK
+                </div>
+            </ons-carousel-item>
+            <ons-carousel-item style="background-color: #D38312;">
+                <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
+                    ORANGE
+                </div>
+            </ons-carousel-item>
+
+            <ons-carousel-item style="background-color: #D38312;">
+                <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
+                    ORANGE2223
+                </div>
+            </ons-carousel-item>-->
+        </ons-carousel>
+
+        <script>
+            var prev = function() {
+                var carousel = document.getElementById('carousel');
+                carousel.prev();
+            };
+
+            var next = function() {
+                var carousel = document.getElementById('carousel');
+                carousel.next();
+            };
+
+            ons.ready(function() {
+
+                console.log("helllo");
+                var isloaded = false;
+
+                $(function(){
+
+                    if (isloaded) {
+
+                        return;
+
+                    }
+                    var userId = localStorage.getItem("userId");
+
+                    //            var APIUrl = "http://192.168.0.4:8080/content/json/listContent";
+                    var APIUrl = localStorage.getItem("APIUrl")+"/content/json/listContent";
+
+                    $.ajax({
+                        url : APIUrl,
+                        method : "POST",
+                        dataType : "jsonp",
+                        data : {
+                            "userId" : userId
+                        },
+                        success : function(data) {
+                            var infinite = '';
+                            $.each(data.list,function(i){
+//                                console.log("Map ==>" + JSON.stringify(data.contentType));
+//                                console.log("aaaaaa==>" + JSON.stringify(data.list));
+
+
+                                infinite += '<ons-carousel-item>'
+                                    +'<ons-card onclick="updateContent('+data.list[i].contentNo+')" style="height: 200px">'
+                                    +'<div class="title">'+data.list[i].ogTitle+'</div>'
+                                    +'<img src="'+data.list[i].ogImgUrl+'" alt="Onsen UI" style="width: 100%">'
+                                    +data.list[i].content+'</ons-card>'
+                                    +'</ons-carousel-item>';
+                            });
+                            console.log("infinite :: " + infinite);
+
+                            $('#carousel').append(infinite);
+
+                        },
+                        error : function(e,data) {
+                            console.log("error==>"+JSON.stringify(e));
+                            console.log("data ==>" + data);
+                        }
+                    });//End Ajax
+
+                    isloaded = true;
+                });//end Infinite
+
+
+                var carousel = document.addEventListener('postchange', function(event) {
+                    console.log('Changed to ' + event.activeIndex)
+                });
+            });
+        </script>
+
+        <script>
+
+
+        </script>
+    </ons-page>
+<!--</template>-->

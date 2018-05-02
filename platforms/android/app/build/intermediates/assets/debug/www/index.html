@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />-->
+
+    <!-- Good default declaration:
+    * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+    * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+    * Disables use of eval() and inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+        * Enable inline JS: add 'unsafe-inline' to default-src
+        * Enable eval(): add 'unsafe-eval' to default-src
+    * Create your own at http://cspisawesome.com
+    -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
+    <!--<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />-->
+    <!--<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>-->
+
+    <!--Start onsen UI-->
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+    <!--End Onsen UI-->
+
+    <!--CKeditor-->
+    <!--<script src="http://cdn.ckeditor.com/4.5.6/standard/ckeditor.js"></script>-->
+    <script src="js/ckeditor/ckeditor.js"></script>
+    <!--CKeditor-->
+
+
+    <style>
+        .page__content {
+            /*overflow: hidden;*/
+            padding-top: 200px;
+        }
+
+        .modal__content{
+            color: black;
+        }
+
+    </style>
+
+
+
+
+    <title>Hello ShimJaewoo</title>
+</head>
+<body>
+
+<!-- Start Loading-->
+<ons-modal direction="up" style="background-color: white;">
+    <div>
+        <p>
+            The Qoo
+        </p>
+    </div>
+
+    <div style="text-align: center">
+        <p>
+            <ons-icon icon="md-spinner" size="28px" spin></ons-icon>
+        </p>
+    </div>
+</ons-modal>
+<!--End Loading-->
+
+<!--Start Splitter-->
+<ons-splitter>
+    <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
+        <ons-page>
+            <!--<ons-list>-->
+                <!--<ons-list-item onclick="fn.load('login.html')" tappable>-->
+                    <!--Home-->
+                <!--</ons-list-item>-->
+                <!--<ons-list-item onclick="fn.load('menu/settings.html')" tappable>-->
+                    <!--Settings-->
+                <!--</ons-list-item>-->
+                <!--<ons-list-item onclick="fn.load('menu/about.html')" tappable>-->
+                    <!--About-->
+                <!--</ons-list-item>-->
+
+            <!--</ons-list>-->
+        </ons-page>
+    </ons-splitter-side>
+    <ons-splitter-content id="content" page="login.html"></ons-splitter-content>
+</ons-splitter>
+<!--End Spliter-->
+
+
+
+
+<script>
+
+    //Loading
+
+    $(function(){
+        var modal = document.querySelector('ons-modal');
+
+
+        modal.show();
+        setTimeout(function() {
+            modal.hide();
+        }, 3000);
+    });
+
+
+//    localStorage.setItem("APIUrl" , "http://theqoo-env.v59vhgmnyk.ap-northeast-2.elasticbeanstalk.com");
+    localStorage.setItem("APIUrl" , "http://192.168.0.4:8080");
+    $(function(){
+
+        if (localStorage.getItem("userId") != null){
+            location.href = 'menu/main.html';
+        }
+    });
+
+
+//    window.fn = {};
+//
+//    window.fn.open = function() {
+//        var menu = document.getElementById('menu');
+//        menu.open();
+//    };
+//
+//    window.fn.load = function(page) {
+//        var content = document.getElementById('content');
+//        var menu = document.getElementById('menu');
+//
+//        if(page == "logout.html"){
+//            localStorage.removeItem("userId");
+//            page= "home.html";
+//        }else if( page == "home.html"){
+//            if( localStorage.getItem("userId") != null ){
+//                page="menu/main.html"
+//            }
+//        }
+//        content.load(page)
+//            .then(menu.close.bind(menu));
+//    };
+
+    var joinView = function(){
+
+        location.href = 'join.html';
+    }
+
+</script>
+
+</body>
+</html>

@@ -7,10 +7,16 @@
     "files": {}
   },
   "installed_plugins": {
+    "cordova-clipboard": {
+      "PACKAGE_NAME": "org.myapp.sample"
+    },
     "cordova-plugin-battery-status": {
       "PACKAGE_NAME": "org.myapp.sample"
     },
     "cordova-plugin-camera": {
+      "PACKAGE_NAME": "org.myapp.sample"
+    },
+    "cordova-plugin-code-push": {
       "PACKAGE_NAME": "org.myapp.sample"
     },
     "cordova-plugin-console": {
@@ -31,15 +37,48 @@
     "cordova-plugin-dialogs": {
       "PACKAGE_NAME": "org.myapp.sample"
     },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "org.myapp.sample"
+    },
     "cordova-plugin-file-transfer": {
       "PACKAGE_NAME": "org.myapp.sample"
     },
-    "cordova-clipboard": {
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "org.myapp.sample"
+    },
+    "cordova-plugin-globalization": {
+      "PACKAGE_NAME": "org.myapp.sample"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "org.myapp.sample"
+    },
+    "cordova-plugin-media": {
+      "PACKAGE_NAME": "org.myapp.sample"
+    },
+    "cordova-plugin-media-capture": {
+      "PACKAGE_NAME": "org.myapp.sample"
+    },
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "org.myapp.sample"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "org.myapp.sample"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "org.myapp.sample"
+    },
+    "cordova-plugin-vibration": {
+      "PACKAGE_NAME": "org.myapp.sample"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "org.myapp.sample"
+    },
+    "cordova-plugin-zip": {
       "PACKAGE_NAME": "org.myapp.sample"
     }
   },
   "dependent_plugins": {
-    "cordova-plugin-file": {
+    "code-push": {
       "PACKAGE_NAME": "org.myapp.sample"
     }
   }

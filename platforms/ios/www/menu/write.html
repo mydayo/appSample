@@ -1,0 +1,123 @@
+
+<ons-page id="main.html">
+    <ons-toolbar>
+        <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+                <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+        </div>
+        <div class="center">
+            The Qoo Main
+        </div>
+    </ons-toolbar>
+
+
+
+    <form>
+        <textarea name="editor1" id="editor1" rows="10">
+        </textarea>
+
+        <script>
+            // Replace the <textarea id="editor1"> with a CKEditor
+            // instance, using default configuration.
+            CKEDITOR.replace('editor1');
+            CKEDITOR.config.width="100%";
+//            CKEDITOR.config.removeButtons = 'Underline,JustifyCenter';
+        </script>
+    </form>
+
+    <input type="hidden" name="writeContentNo" id="writeContentNo" value="-1">
+
+    <p style="margin-top: 30px; text-align: center;" id="append-delete">
+        <ons-button onclick="fn.saveContent()">Save</ons-button>
+
+    </p>
+
+    <!--alert-->
+
+    <template id="alert-dialog.html">
+    <ons-alert-dialog id="my-alert-dialog" modifier="rowfooter">
+    <div class="alert-dialog-title">Alert</div>
+    <div class="alert-dialog-content">
+    정말 삭제하시겠습니까?
+    </div>
+    <div class="alert-dialog-footer">
+    <ons-alert-dialog-button onclick="hideAlertDialog(-1)">Cancel</ons-alert-dialog-button>
+    <ons-alert-dialog-button onclick="hideAlertDialog(1)">OK</ons-alert-dialog-button>
+    </div>
+    </ons-alert-dialog>
+    </template>
+
+    <!--alert-->
+
+    <script>
+
+        var contentNoGlobal;
+        $(function () {
+
+            setTimeout(function(){
+                if($("#writeContentNo").val() != '-1'){
+                    $("#append-delete").append("<ons-button onclick=\"deleteContent("+$('#writeContentNo').val()+")\">Delete</ons-button>");
+                }
+            },200);
+        });
+
+        var deleteContent = function(contentNo){
+            console.log("deleteContent :: " + contentNo);
+            contentNoGlobal = contentNo;
+            var dialog = document.getElementById('my-alert-dialog');
+
+            if (dialog) {
+                dialog.show();
+            } else {
+                ons.createElement('alert-dialog.html', { append: true })
+                    .then(function(dialog) {
+                        dialog.show();
+                    });
+            }
+
+
+
+
+        };//End DeleteContent
+
+        var hideAlertDialog = function(option) {
+            console.log("hideAlertDialog");
+//            var APIUrl = "http://192.168.0.4:8080/content/json/deleteContent";
+            var APIUrl = localStorage.getItem("APIUrl")+"/content/json/deleteContent";
+            var userId = localStorage.getItem("userId");
+            if(option == 1){
+
+                $.ajax({
+                url : APIUrl,
+                method : "POST",
+                dataType : "jsonp",
+                data : {
+                    "userId" : userId,
+                    "contentNo" : contentNoGlobal
+                },
+                success : function(data) {
+                    console.log("success" + data.result);
+                    location.href = "/menu/main.html";
+                },
+                error : function(e) {
+                    console.log("error" + e);
+                }
+
+
+                });//End Ajax
+            }
+            document
+                .getElementById('my-alert-dialog')
+                .hide();
+        };
+
+
+
+    </script>
+
+
+    <!--<ons-button onclick="createAlertDialog()">From Template</ons-button>-->
+
+</ons-page>
+

@@ -2,8 +2,8 @@
     <ons-page id="Tab4">
         <ons-list>
             <ons-list-header>Default</ons-list-header>
-            <ons-list-item id="logout">Logout</ons-list-item>
-            <ons-list-item>Item B</ons-list-item>
+            <ons-list-item onclick="logout()">Logout</ons-list-item>
+            <ons-list-item><input id="clipboardTest" type="text" value="444"></ons-list-item>
 
             <ons-list-header>Tappable / Ripple</ons-list-header>
             <ons-list-item tappable>Tap me</ons-list-item>
@@ -74,12 +74,22 @@
         <br />
 
         <script>
-            $(function(){
-                $('#logout').on('click', function(){
-                    localStorage.removeItem("userId");
-                    location.href = '/';
-                })
-            })
+
+
+            var logout = function(){
+                localStorage.removeItem("userId");
+                location.href = '/';
+            };
+
+            var text = "Hello World!";
+
+            cordova.plugins.clipboard.copy(text);
+
+//            cordova.plugins.clipboard.paste(function (text) { alert(text); });
+
+            cordova.plugins.clipboard.paste(function (text) {
+                $('#clipboardTest').val(123123);
+            });
         </script>
     </ons-page>
 <!--</template>-->
