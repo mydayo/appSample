@@ -1,14 +1,6 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
-        "file": "plugins/cordova-clipboard/www/clipboard.js",
-        "id": "cordova-clipboard.Clipboard",
-        "pluginId": "cordova-clipboard",
-        "clobbers": [
-            "cordova.plugins.clipboard"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-battery-status/www/battery.js",
         "id": "cordova-plugin-battery-status.battery",
         "pluginId": "cordova-plugin-battery-status",
@@ -586,15 +578,21 @@ module.exports = [
         "id": "cordova-plugin-media-capture.CaptureProxy",
         "pluginId": "cordova-plugin-media-capture",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-clipboard/www/clipboard.js",
+        "id": "cordova-clipboard.Clipboard",
+        "pluginId": "cordova-clipboard",
+        "clobbers": [
+            "cordova.plugins.clipboard"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "cordova-clipboard": "1.2.1",
     "cordova-plugin-battery-status": "1.1.2",
     "cordova-plugin-camera": "2.1.1",
-    "cordova-plugin-console": "1.0.7",
     "cordova-plugin-contacts": "2.0.1",
     "cordova-plugin-device": "1.1.7",
     "cordova-plugin-device-motion": "1.2.5",
@@ -607,7 +605,8 @@ module.exports.metadata =
     "cordova-plugin-media": "2.2.0",
     "cordova-plugin-compat": "1.2.0",
     "cordova-plugin-file": "4.3.3",
-    "cordova-plugin-media-capture": "1.2.0"
+    "cordova-plugin-media-capture": "1.2.0",
+    "cordova-clipboard": "1.2.1"
 }
 // BOTTOM OF METADATA
 });

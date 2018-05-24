@@ -4,16 +4,16 @@
         "source": "/Users/sjwiq200/Documents/GitHub/appSample/appSample/platforms/android/app/src/main/res/mipmap-xhdpi/icon.png"
     },
     {
-        "merged": "/Users/sjwiq200/Documents/GitHub/appSample/appSample/platforms/android/app/build/intermediates/res/merged/debug/mipmap-mdpi_icon.png.flat",
-        "source": "/Users/sjwiq200/Documents/GitHub/appSample/appSample/platforms/android/app/src/main/res/mipmap-mdpi/icon.png"
+        "merged": "/Users/sjwiq200/Documents/GitHub/appSample/appSample/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-xhdpi_screen.png.flat",
+        "source": "/Users/sjwiq200/Documents/GitHub/appSample/appSample/platforms/android/app/src/main/res/drawable-port-xhdpi/screen.png"
     },
     {
         "merged": "/Users/sjwiq200/Documents/GitHub/appSample/appSample/platforms/android/app/build/intermediates/res/merged/debug/drawable-xxhdpi_ic_action_remove.png.flat",
         "source": "/Users/sjwiq200/Documents/GitHub/appSample/appSample/platforms/android/app/src/main/res/drawable-xxhdpi/ic_action_remove.png"
     },
     {
-        "merged": "/Users/sjwiq200/Documents/GitHub/appSample/appSample/platforms/android/app/build/intermediates/res/merged/debug/drawable-port-xhdpi_screen.png.flat",
-        "source": "/Users/sjwiq200/Documents/GitHub/appSample/appSample/platforms/android/app/src/main/res/drawable-port-xhdpi/screen.png"
+        "merged": "/Users/sjwiq200/Documents/GitHub/appSample/appSample/platforms/android/app/build/intermediates/res/merged/debug/mipmap-mdpi_icon.png.flat",
+        "source": "/Users/sjwiq200/Documents/GitHub/appSample/appSample/platforms/android/app/src/main/res/mipmap-mdpi/icon.png"
     },
     {
         "merged": "/Users/sjwiq200/Documents/GitHub/appSample/appSample/platforms/android/app/build/intermediates/res/merged/debug/drawable-land-xxhdpi_screen.png.flat",

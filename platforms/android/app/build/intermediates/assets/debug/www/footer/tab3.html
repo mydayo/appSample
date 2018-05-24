@@ -3,7 +3,7 @@
 <!--ul li로 하는게 편함!!!-->
 
 
-    <ons-page id="Tab2">
+    <ons-page id="Tab3">
 
 
 
@@ -73,15 +73,6 @@
 
             ons.ready(function(){
 
-                var text = "Hello World!";
-
-                cordova.plugins.clipboard.copy(text);
-
-                cordova.plugins.clipboard.paste(function (text) { alert(text); });
-
-                cordova.plugins.clipboard.clear();
-
-
                 var userId = localStorage.getItem("userId");
                 var APIUrl = localStorage.getItem("APIUrl")+"/group/json/listGroup";
 
@@ -109,16 +100,16 @@
                             }else if( i != 0 && i % 3 == 0 ){
                                 infinite += '<th><ons-fab><ons-icon>'
                                         + data.list[i].groupName
-                                        + '</ons-icon></ons-fab></th></tr>'
-
-                            }else if( i != 0 && (i+1) % 3 == 1) {
-                                infinite += '<tr><th><ons-fab><ons-icon>'
-                                        + data.list[i].groupName
                                         + '</ons-icon></ons-fab></th>'
 
-                            }
-                            else if( i != 0 && (i+1) % 3 == 2){
+                            }else if( i != 0 && i % 3 == 1) {
                                 infinite += '<th><ons-fab><ons-icon>'
+                                        + data.list[i].groupName
+                                        + '</ons-icon></ons-fab></th></tr>'
+
+                            }
+                            else if( i != 0 && i % 3 == 2){
+                                infinite += '<tr><th><ons-fab><ons-icon>'
                                         + data.list[i].groupName
                                         + '</ons-icon></ons-fab></th>'
                             }
@@ -126,7 +117,7 @@
 
 
                         });//End ForEach
-                        if(trCount != 0){
+                        if(trCount != 1){
                             infinite += '</tr>';
                         }
 

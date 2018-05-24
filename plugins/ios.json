@@ -19,9 +19,6 @@
     "cordova-plugin-code-push": {
       "PACKAGE_NAME": "org.myapp.sample"
     },
-    "cordova-plugin-console": {
-      "PACKAGE_NAME": "org.myapp.sample"
-    },
     "cordova-plugin-contacts": {
       "PACKAGE_NAME": "org.myapp.sample"
     },

@@ -17,13 +17,16 @@
         * Enable eval(): add 'unsafe-eval' to default-src
     * Create your own at http://cspisawesome.com
     -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+     <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" />-->
 
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <!--<link rel="stylesheet" type="text/css" href="css/index.css" />-->
 
     <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
     <!--<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />-->
     <!--<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>-->
+
+    <!--<script type="text/javascript" src="cordova.js"></script>-->
+    <!--<script type="text/javascript" src="js/index.js"></script>-->
 
     <!--Start onsen UI-->
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
@@ -57,24 +60,17 @@
 </head>
 <body>
 
-<!-- Start Loading-->
-<ons-modal direction="up" style="background-color: white;">
-    <div>
-        <p>
-            The Qoo
-        </p>
-    </div>
-
-    <div style="text-align: center">
-        <p>
-            <ons-icon icon="md-spinner" size="28px" spin></ons-icon>
-        </p>
-    </div>
-</ons-modal>
-<!--End Loading-->
 
 <!--Start Splitter-->
 <ons-splitter>
+
+    <ons-toolbar>
+
+        <div class="center">
+            The Qoo
+        </div>
+
+    </ons-toolbar>
         <ons-page>
             <div style="text-align: center;">
                 <p>
@@ -111,6 +107,7 @@
 //        setTimeout(function() {
 //            modal.hide();
 //        }, 3000);
+
     });
 
 
@@ -118,7 +115,7 @@
     localStorage.setItem("APIUrl" , "http://192.168.0.4:8080");
     $(function(){
         if (localStorage.getItem("userId") != null){
-            location.href = 'menu/main.html';
+            location.href = 'main.html';
         }
     });
 
@@ -149,7 +146,7 @@
                     localStorage.setItem("userId",username);
 
 
-                    location.href='menu/main.html';
+                    location.href='main.html';
 
                 }else{
                     ons.notification.alert('ID나 패스워드를 확인해주세요!');

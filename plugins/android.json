@@ -7,9 +7,6 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-clipboard": {
-      "PACKAGE_NAME": "org.myapp.sample"
-    },
     "cordova-plugin-battery-status": {
       "PACKAGE_NAME": "org.myapp.sample"
     },
@@ -17,9 +14,6 @@
       "PACKAGE_NAME": "org.myapp.sample"
     },
     "cordova-plugin-code-push": {
-      "PACKAGE_NAME": "org.myapp.sample"
-    },
-    "cordova-plugin-console": {
       "PACKAGE_NAME": "org.myapp.sample"
     },
     "cordova-plugin-contacts": {
@@ -74,6 +68,9 @@
       "PACKAGE_NAME": "org.myapp.sample"
     },
     "cordova-plugin-zip": {
+      "PACKAGE_NAME": "org.myapp.sample"
+    },
+    "cordova-clipboard": {
       "PACKAGE_NAME": "org.myapp.sample"
     }
   },

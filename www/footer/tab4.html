@@ -2,8 +2,8 @@
     <ons-page id="Tab4">
         <ons-list>
             <ons-list-header>Default</ons-list-header>
-            <ons-list-item onclick="logout()">Logout</ons-list-item>
-            <ons-list-item><input id="clipboardTest" type="text" value="444"></ons-list-item>
+            <ons-list-item onclick="logoutConfirm()">Logout</ons-list-item>
+            <ons-list-item onclick="myFunction()">itemBB</ons-list-item>
 
             <ons-list-header>Tappable / Ripple</ons-list-header>
             <ons-list-item tappable>Tap me</ons-list-item>
@@ -73,23 +73,48 @@
 
         <br />
 
+
+
+
         <script>
 
 
-            var logout = function(){
-                localStorage.removeItem("userId");
-                location.href = '/';
+
+
+            var logoutConfirm = function(){
+                ons.notification.confirm({
+                    message:'로그아웃 하시겠습니까?',
+                    buttonLabel: ['예','아니오'],
+                    callback : function(idx,options) {
+                        switch (idx){
+                            case 0:
+//                                ons.notification.alert('idx 0');
+                                localStorage.removeItem("userId");
+                                location.href = '../index.html';
+                                break;
+                            case 1:
+//                                ons.notification.alert('idx 1');
+                                break;
+                        }
+
+                    }
+                });
+
             };
 
-            var text = "Hello World!";
+            var myFunction = function () {
+                var text = "Hello World!";
 
-            cordova.plugins.clipboard.copy(text);
+//                ons.notification.alert('111');
+                cordova.plugins.clipboard.copy(text);
+//                ons.notification.alert('222');
+                cordova.plugins.clipboard.paste(function (text) {
+                    ons.notification.alert(text);
+                });
+//                ons.notification.alert('3333');
+                cordova.plugins.clipboard.clear();
+            };
 
-//            cordova.plugins.clipboard.paste(function (text) { alert(text); });
-
-            cordova.plugins.clipboard.paste(function (text) {
-                $('#clipboardTest').val(123123);
-            });
         </script>
     </ons-page>
 <!--</template>-->

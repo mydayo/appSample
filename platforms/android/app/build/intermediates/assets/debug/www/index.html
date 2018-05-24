@@ -17,9 +17,9 @@
         * Enable eval(): add 'unsafe-eval' to default-src
     * Create your own at http://cspisawesome.com
     -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
+     <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" />-->
 
-    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <!--<link rel="stylesheet" type="text/css" href="css/index.css" />-->
 
     <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
     <!--<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />-->
@@ -57,41 +57,36 @@
 </head>
 <body>
 
-<!-- Start Loading-->
-<ons-modal direction="up" style="background-color: white;">
-    <div>
-        <p>
-            The Qoo
-        </p>
-    </div>
-
-    <div style="text-align: center">
-        <p>
-            <ons-icon icon="md-spinner" size="28px" spin></ons-icon>
-        </p>
-    </div>
-</ons-modal>
-<!--End Loading-->
 
 <!--Start Splitter-->
 <ons-splitter>
-    <ons-splitter-side id="menu" side="left" width="220px" collapse swipeable>
-        <ons-page>
-            <!--<ons-list>-->
-                <!--<ons-list-item onclick="fn.load('login.html')" tappable>-->
-                    <!--Home-->
-                <!--</ons-list-item>-->
-                <!--<ons-list-item onclick="fn.load('menu/settings.html')" tappable>-->
-                    <!--Settings-->
-                <!--</ons-list-item>-->
-                <!--<ons-list-item onclick="fn.load('menu/about.html')" tappable>-->
-                    <!--About-->
-                <!--</ons-list-item>-->
 
-            <!--</ons-list>-->
+    <ons-toolbar>
+
+        <div class="center">
+            The Qoo
+        </div>
+
+    </ons-toolbar>
+        <ons-page>
+            <div style="text-align: center;">
+                <p>
+                    <ons-input id="username" modifier="underbar" placeholder="Username" float></ons-input>
+                </p>
+                <p>
+                    <ons-input id="password" modifier="underbar" type="password" placeholder="Password" float></ons-input>
+                </p>
+                <p style="margin-top: 30px;">
+                    <ons-button onclick="login()">Sign in</ons-button>
+                    <ons-button onclick="joinView()">Join</ons-button>
+                </p>
+
+                <p style="margin-top: 30px;">
+
+                </p>
+
+            </div>
         </ons-page>
-    </ons-splitter-side>
-    <ons-splitter-content id="content" page="login.html"></ons-splitter-content>
 </ons-splitter>
 <!--End Spliter-->
 
@@ -105,51 +100,61 @@
     $(function(){
         var modal = document.querySelector('ons-modal');
 
+//        modal.show();
+//        setTimeout(function() {
+//            modal.hide();
+//        }, 3000);
 
-        modal.show();
-        setTimeout(function() {
-            modal.hide();
-        }, 3000);
     });
 
 
 //    localStorage.setItem("APIUrl" , "http://theqoo-env.v59vhgmnyk.ap-northeast-2.elasticbeanstalk.com");
     localStorage.setItem("APIUrl" , "http://192.168.0.4:8080");
     $(function(){
-
         if (localStorage.getItem("userId") != null){
             location.href = 'menu/main.html';
         }
     });
 
-
-//    window.fn = {};
-//
-//    window.fn.open = function() {
-//        var menu = document.getElementById('menu');
-//        menu.open();
-//    };
-//
-//    window.fn.load = function(page) {
-//        var content = document.getElementById('content');
-//        var menu = document.getElementById('menu');
-//
-//        if(page == "logout.html"){
-//            localStorage.removeItem("userId");
-//            page= "home.html";
-//        }else if( page == "home.html"){
-//            if( localStorage.getItem("userId") != null ){
-//                page="menu/main.html"
-//            }
-//        }
-//        content.load(page)
-//            .then(menu.close.bind(menu));
-//    };
-
     var joinView = function(){
 
         location.href = 'join.html';
-    }
+    };
+
+    var login = function() {
+        console.log("this is a login function() in index.html");
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        var APIUrl = localStorage.getItem("APIUrl")+"/user/json/loginHybrid";
+
+        $.ajax({
+            url : APIUrl,
+            method : "POST",
+            dataType : "jsonp",
+            data : {
+                "userId" : username,
+                "password" : password
+            },
+            success : function(data) {
+                console.log("success==>"+data.result);
+
+                if(data.result == "true"){
+                    localStorage.setItem("userId",username);
+
+
+                    location.href='menu/main.html';
+
+                }else{
+                    ons.notification.alert('ID나 패스워드를 확인해주세요!');
+                }
+            },
+            error : function(e,data) {
+                console.log("error==>"+JSON.stringify(e));
+                console.log("data ==>" + data);
+            }
+        });//End Ajax
+    };//End loginFunction
 
 </script>
 

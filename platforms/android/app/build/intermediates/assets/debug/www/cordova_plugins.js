@@ -9,14 +9,6 @@ module.exports = [
     ]
   },
   {
-    "id": "cordova-clipboard.Clipboard",
-    "file": "plugins/cordova-clipboard/www/clipboard.js",
-    "pluginId": "cordova-clipboard",
-    "clobbers": [
-      "cordova.plugins.clipboard"
-    ]
-  },
-  {
     "id": "cordova-plugin-battery-status.battery",
     "file": "plugins/cordova-plugin-battery-status/www/battery.js",
     "pluginId": "cordova-plugin-battery-status",
@@ -54,6 +46,14 @@ module.exports = [
     "pluginId": "cordova-plugin-camera",
     "clobbers": [
       "CameraPopoverHandle"
+    ]
+  },
+  {
+    "id": "cordova-plugin-clipboard2.Clipboard",
+    "file": "plugins/cordova-plugin-clipboard2/www/clipboard.js",
+    "pluginId": "cordova-plugin-clipboard2",
+    "clobbers": [
+      "cordova.plugins.clipboard"
     ]
   },
   {
@@ -623,13 +623,12 @@ module.exports.metadata =
 // TOP OF METADATA
 {
   "code-push": "2.0.4",
-  "cordova-clipboard": "1.2.1",
   "cordova-plugin-battery-status": "1.1.2",
   "cordova-plugin-camera": "2.1.1",
+  "cordova-plugin-clipboard2": "0.1.0",
   "cordova-plugin-dialogs": "1.2.1",
   "cordova-plugin-device": "1.1.7",
   "cordova-plugin-code-push": "1.11.10",
-  "cordova-plugin-console": "1.0.7",
   "cordova-plugin-contacts": "2.0.1",
   "cordova-plugin-device-motion": "1.2.5",
   "cordova-plugin-device-orientation": "1.0.7",

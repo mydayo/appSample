@@ -7,16 +7,10 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-clipboard": {
-      "PACKAGE_NAME": "org.myapp.sample"
-    },
     "cordova-plugin-battery-status": {
       "PACKAGE_NAME": "org.myapp.sample"
     },
     "cordova-plugin-camera": {
-      "PACKAGE_NAME": "org.myapp.sample"
-    },
-    "cordova-plugin-console": {
       "PACKAGE_NAME": "org.myapp.sample"
     },
     "cordova-plugin-contacts": {
@@ -50,6 +44,9 @@
       "PACKAGE_NAME": "org.myapp.sample"
     },
     "cordova-plugin-media-capture": {
+      "PACKAGE_NAME": "org.myapp.sample"
+    },
+    "cordova-clipboard": {
       "PACKAGE_NAME": "org.myapp.sample"
     }
   },

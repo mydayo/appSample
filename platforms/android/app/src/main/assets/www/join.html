@@ -46,16 +46,16 @@
 
 <body>
 
-<ons-navigator swipeable id="myNavigator" page="page1.html"></ons-navigator>
-
-<template id="page1.html">
+<!--<ons-navigator swipeable id="myNavigator" page="page1.html"></ons-navigator>-->
+<ons-splitter>
+<!--<template id="page1.html">-->
     <ons-page id="page1" >
         <ons-toolbar>
-            <div class="left"><ons-back-button style="display: inline-block">Back</ons-back-button></div>
+            <ons-back-button style="display: block" onclick="historyBack()">Back</ons-back-button>
             <div class="center">회원가입</div>
         </ons-toolbar>
 
-        <ons-page>
+
             <div style="text-align: center; margin-top: 30px;">
 
 
@@ -117,11 +117,10 @@
                 <button class="btn btn-primary" style="margin-top: 30px;" onclick="join()">Join</button>
 
             </div>
-        </ons-page>
 
-        <ons-button id="push-button">Push page</ons-button>
     </ons-page>
-</template>
+<!--</template>-->
+</ons-splitter>
 
 <!--<template id="page2.html">-->
     <!--<ons-page id="page2">-->
@@ -133,17 +132,9 @@
     <!--</ons-page>-->
 <!--</template>-->
 <script>
-    document.addEventListener('init', function(event) {
-        var page = event.target;
-
-        if (page.id === 'page1') {
-            page.querySelector('#push-button').onclick = function() {
-                document.querySelector('#myNavigator').pushPage('page2.html', {data: {title: 'Page 2'}});
-            };
-        } else if (page.id === 'page2') {
-            page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
-        }
-    });
+    var historyBack = function(){
+      history.back();
+    };
 
     $(function () {
 //        var APIUrl = "http://192.168.0.4:8080/user/json/allUserId";
