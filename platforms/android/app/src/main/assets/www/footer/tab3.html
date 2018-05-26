@@ -53,7 +53,7 @@
                     },
                     success : function(data){
 
-                        console.log("addGroup :: " +JSON.stringify(data));
+//                        console.log("addGroup :: " +JSON.stringify(data));
                         $('.input--group--name').remove();
                         $('.add--group').remove();
                         $('#group--layout tr:last th:last ons-icon').text(groupName);
@@ -62,9 +62,39 @@
                         console.log(e);
                     }
                 })
-            };
+            };//End addGroup
+
+            var updateGroup = function(){
+                var APIUrl = localStorage.getItem("APIUrl")+"/group/json/updateGroup";
+                var userId = localStorage.getItem("userId");
+                var groupName = $(this).parent().find('.update--group--name').val();
+                var groupNo = $(this).parent().find('.update--group--name').attr('id').split('updateGroupNo')[1];
+                console.log("updateGroup ::" +groupName);
+                console.log("updateGroup ::" +groupNo);
+
+                $.ajax({
+                    url: APIUrl,
+                    method : "POST",
+                    dataType : "jsonp",
+                    data : {
+                        userId : userId,
+                        groupNo : groupNo,
+                        groupName : groupName
+                    },
+                    success : function(data){
+                     $('.update--group--name').remove();
+                     $('.update--group').remove();
+                     $('#groupNo'+groupNo).text(groupName);
+
+                    },
+                    error : function(){
+
+                    }
+                });//End ajax
+            };//End updateGroup
 
             $("body").on('click', '.add--group', addGroup);
+            $("body").on('click', '.update--group', updateGroup);
 
 
 
@@ -88,40 +118,38 @@
                         var trCount = data.list.length % 3;
                         $.each(data.list,function(i){
 //                            console.log("Map ==>" + JSON.stringify(data.contentType));
-                            console.log("tab33333==>" + data.list[i].groupName);
-                            console.log("i :: "+i+ "length ::" +data.list.length);
+//                            console.log("tab33333==>" + data.list[i].groupName);
+//                            console.log("i :: "+i+ "length ::" +data.list.length);
 
                             if( i== 0) {
                                 infinite += '<tr><th><ons-fab onclick="plusGroup()"><ons-icon icon="md-plus"></ons-icon></ons-fab></th>'
-                                            +'<th><ons-fab><ons-icon>'
+                                            +'<th><ons-fab id="groupNo'+data.list[i].groupNo+'" onclick="app.showFromObject('+data.list[i].groupNo+')"><ons-icon>'
                                             +data.list[i].groupName
                                             + '</ons-icon></ons-fab></th>'
 
                             }else if( i != 0 && i % 3 == 0 ){
-                                infinite += '<th><ons-fab><ons-icon>'
+                                infinite += '<th><ons-fab id="groupNo'+data.list[i].groupNo+'" onclick="app.showFromObject('+data.list[i].groupNo+')"><ons-icon>'
                                         + data.list[i].groupName
                                         + '</ons-icon></ons-fab></th>'
 
                             }else if( i != 0 && i % 3 == 1) {
-                                infinite += '<th><ons-fab><ons-icon>'
+                                infinite += '<th><ons-fab id="groupNo'+data.list[i].groupNo+'" onclick="app.showFromObject('+data.list[i].groupNo+')"><ons-icon>'
                                         + data.list[i].groupName
                                         + '</ons-icon></ons-fab></th></tr>'
 
                             }
                             else if( i != 0 && i % 3 == 2){
-                                infinite += '<tr><th><ons-fab><ons-icon>'
+                                infinite += '<tr><th><ons-fab id="groupNo'+data.list[i].groupNo+'" onclick="app.showFromObject('+data.list[i].groupNo+')"><ons-icon>'
                                         + data.list[i].groupName
                                         + '</ons-icon></ons-fab></th>'
                             }
-
-
 
                         });//End ForEach
                         if(trCount != 1){
                             infinite += '</tr>';
                         }
 
-                        console.log("tab3 infinite :: " + infinite);
+//                        console.log("tab3 infinite :: " + infinite);
                         $('#group--layout').append(infinite);
                     },
                     error : function(e,data) {
@@ -129,7 +157,127 @@
                         console.log("data ==>" + data);
                     }
                 });//End Ajax
-            });//End ons.ready
+            });//End ons.ready
+
+            var app = {};
+
+//            ons.ready(function () {
+//                ons.createElement('action-sheet.html', { append: true })
+//                    .then(function (sheet) {
+//                        app.showFromTemplate = sheet.show.bind(sheet);
+//                        app.hideFromTemplate = sheet.hide.bind(sheet);
+//                    });
+//            });
+
+            app.showFromObject = function (groupNo) {
+
+                ons.openActionSheet({
+                    title: '그룹관리',
+                    cancelable: true,
+                    buttons: [
+                        '수정',
+                        {
+//                            label: 'Label 2',
+                            label: '삭제',
+                            modifier: 'destructive'
+                        },
+                        {
+                            label: 'Cancel',
+                            icon: 'md-close'
+                        }
+                    ]
+                }).then(function (index) {
+                    console.log('index: '+ index+' groupNo:' + groupNo);
+
+                    var APIUrl = localStorage.getItem("APIUrl")+'/group/json/deleteGroup';
+                    var userId = localStorage.getItem("userId");
+
+                    if(index == 0){
+                        //수정
+                        console.log('수정 테스트 ::' + $('#groupNo'+groupNo).html());
+                        $('#groupNo'+groupNo).html('');
+                        var updateGroup = '<div><ons-input id="updateGroupNo'+groupNo+'" class="update--group--name" modifier="underbar" placeholder="Username" float></ons-input>' +
+                            '<ons-button class="update--group">Update</ons-button>' +
+                            '</div>';
+                        $('#groupNo'+groupNo).parent().append(updateGroup);
+
+                    }else if(index == 1){
+                        //삭제
+                        ons.notification.confirm({
+                            message:'정말 삭제하겠습니까?',
+                            buttonLabel: ['예','아니오'],
+                            callback : function(idx,options) {
+                                switch (idx){
+                                    case 0:
+//                                ons.notification.alert('idx 0');
+
+                                        $.ajax({
+                                            url : APIUrl,
+                                            method : "POST",
+                                            dataType : "jsonp",
+                                            data : {
+                                                userId : userId,
+                                                groupNo : groupNo
+                                            },
+                                            success : function(data) {
+                                                console.log("삭제 테스트 :: " + JSON.stringify(data));
+
+                                                $('#group--layout').html('');
+                                                var infinite = '';
+                                                var trCount = data.list.length % 3;
+                                                $.each(data.list,function(i){
+//                                                    console.log("tab33333==>" + data.list[i].groupName);
+//                                                    console.log("i :: "+i+ "length ::" +data.list.length);
+
+                                                    if( i== 0) {
+                                                        infinite += '<tr><th><ons-fab onclick="plusGroup()"><ons-icon icon="md-plus"></ons-icon></ons-fab></th>'
+                                                            +'<th><ons-fab id="groupNo'+data.list[i].groupNo+'" onclick="app.showFromObject('+data.list[i].groupNo+')"><ons-icon>'
+                                                            +data.list[i].groupName
+                                                            + '</ons-icon></ons-fab></th>'
+
+                                                    }else if( i != 0 && i % 3 == 0 ){
+                                                        infinite += '<th><ons-fab id="groupNo'+data.list[i].groupNo+'" onclick="app.showFromObject('+data.list[i].groupNo+')"><ons-icon>'
+                                                            + data.list[i].groupName
+                                                            + '</ons-icon></ons-fab></th>'
+
+                                                    }else if( i != 0 && i % 3 == 1) {
+                                                        infinite += '<th><ons-fab id="groupNo'+data.list[i].groupNo+'" onclick="app.showFromObject('+data.list[i].groupNo+')"><ons-icon>'
+                                                            + data.list[i].groupName
+                                                            + '</ons-icon></ons-fab></th></tr>'
+
+                                                    }
+                                                    else if( i != 0 && i % 3 == 2){
+                                                        infinite += '<tr><th><ons-fab id="groupNo'+data.list[i].groupNo+'" onclick="app.showFromObject('+data.list[i].groupNo+')"><ons-icon>'
+                                                            + data.list[i].groupName
+                                                            + '</ons-icon></ons-fab></th>'
+                                                    }
+
+                                                });//End ForEach
+                                                if(trCount != 1){
+                                                    infinite += '</tr>';
+                                                }
+
+//                                                console.log("tab3 infinite :: " + infinite);
+                                                $('#group--layout').append(infinite);
+                                            },
+
+                                            error : function(e) {
+                                                console.log("error :: "+e);
+                                            }
+
+                                        });//End ajax
+
+                                        break;
+                                    case 1:
+                                ons.notification.alert('idx 1');
+                                        break;
+                                }//End switch
+                            }
+                        });//End ons.notification
+
+                    }//End else if
+                });
+            };//End showFromObject
 
 
         </script>

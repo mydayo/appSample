@@ -103,7 +103,7 @@
 
         <ons-page>
             <ons-toolbar>
-                <div class="left"><ons-back-button>Back</ons-back-button></div>
+                <div class="left"><ons-back-button id="search--back--button">Back</ons-back-button></div>
                 <div class="center">
                     <ons-search-input
                             style="margin-top: 7px"
@@ -123,9 +123,178 @@
 <!--Search Modal-->
 
 
+<!--URL Modal-->
+<ons-modal id="url--view" direction="up">
+
+
+    <div style="text-align: center">
+
+        <ons-page>
+            <ons-toolbar>
+                <div class="left"><ons-back-button id="url--back--button">Back</ons-back-button></div>
+                <div class="center">
+                    The Qoo
+                </div>
+            </ons-toolbar>
+
+            <div id="groupContent">
+
+                <ons-card>
+                    <div class="title">
+                        그룹선택
+                    </div>
+                </ons-card>
+
+
+                <ons-select id="choose-sel" onchange="editSelects(event)">
+                    <!--<option value="basic">Basic</option>-->
+                    <!--<option value="material">Material</option>-->
+                    <!--<option value="underbar">Underbar</option>-->
+                </ons-select>
+
+            </div>
+
+            <div id="urlContent">
+                <ons-list>
+                    <ons-list-header>Clipboard URL</ons-list-header>
+                    <!--<ons-list-item>Item A</ons-list-item>-->
+                </ons-list>
+            </div>
+
+            <div>
+                <ons-button id="appendUrl" modifier="large">large</ons-button>
+            </div>
+
+        </ons-page>
+    </div>
+</ons-modal>
+<!--URL Modal-->
+
+<!--Start Toast-->
+<ons-toast id="myToast" animation="ascend">
+    클립보드에 복사한 내용이 있어요~
+    <!--<button onclick="myToast.hide()">닫기</button>-->
+</ons-toast>
+<!--End Toast-->
 
 
 <script>
+
+
+//    Url Check
+    var hasURL = false;
+    var URL = '';
+    var hasToast = true;
+
+    ons.ready(function () {
+        setInterval(checkForURL, 4*1000);
+    });//End ons.ready
+
+    var isURL = function(s) {
+        //Credit: http://stackoverflow.com/a/3809435
+        var expr = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/i;
+        var regex = new RegExp(expr);
+        var result = s.match(regex);
+        if(result) return true;
+        return false;
+    };
+
+    var checkForURL = function () {
+        cordova.plugins.clipboard.paste(function(result){
+            if(result == ''){
+                document.querySelector('ons-toast').hide();
+
+            }else{
+                //        $('.toast__message').text('aaaa');
+//                if($('#myToast').css('display') == 'none'){
+                if(hasToast) {
+                    hasToast = false;
+                    $('#urlContent ons-list').append('<ons-list-item id="urlValue">'+result+'</ons-list-item>');
+                    document.querySelector('ons-toast').show();
+                }
+
+            }
+        });
+
+//        if( $('#myToast').css('display') =='none'){
+//        if(hasToast) {
+//            hasToast = false;
+//            $('#urlContent ons-list').append('<ons-list-item id="urlValue">https://www.daum.net/</ons-list-item>');
+//
+//            document.querySelector('ons-toast').show();
+//        }
+
+
+    };//End checkForURL
+
+    $('#myToast').on('click',function () {
+
+        var APIUrl = localStorage.getItem("APIUrl")+"/group/json/listGroup";
+        var userId = localStorage.getItem('userId');
+
+
+        $.ajax({
+            url : APIUrl,
+            method : "POST",
+            dataType : "jsonp",
+            data : {
+               userId : userId
+            },
+            success : function(data){
+                var infinite = '';
+                console.log("Toast Group Test :: " +JSON.stringify(data));
+                $.each(data.list,function(i){
+                    infinite += '<option value="'+data.list[i].groupName+'">'
+                        + data.list[i].groupName
+                        + '</option>'
+                });//End each
+                $('#choose-sel .select-input').append(infinite);
+            },
+            error : function (e) {
+                console.log("error :::" + e);
+            }
+        });//End ajax
+
+
+        var modal = $('#url--view');
+        modal.show();
+        document.querySelector('ons-toast').hide();
+
+    });
+
+    $('#appendUrl').on('click', function(){
+
+        var APIUrl = localStorage.getItem("APIUrl")+'/content/json/addContent';
+        var userId = localStorage.getItem("userId");
+        var urlValue = $('#urlValue').text();
+        var groupName = $('#choose-sel .select-input option:selected').val();
+
+        alert('select value ::' +groupName+ ' URLValue ::' +urlValue );
+        $.ajax({
+            url : APIUrl,
+            method : "POST",
+            dataType : "jsonp",
+            data : {
+                userId : userId,
+                contentType : groupName,
+                content : urlValue
+            },
+            success : function(data){
+                console.log("appendUrl test ::" + data);
+            },
+            error : function(e){
+                console.log("error ::" + e);
+            }
+        });//End ajax
+
+        var modal = $('#url--view');
+        modal.hide();
+    });
+
+    $("#url--back--button").on("click", function(){
+        var modal = $('#url--view');
+        modal.hide();
+    });
 
     window.fn = {};
 
@@ -327,7 +496,8 @@
         });//End Ajax
     };//End SearchResult
 
-    $("ons-back-button").on("click", function(){
+//    $("ons-back-button").on("click", function(){
+    $('#url--back--button').on('click',function(){
 //                var modal = document.querySelector('ons-modal');
         var modal = $('#search--view');
         modal.hide();
